@@ -1,0 +1,170 @@
+from tkinter import *
+import math
+import pickle
+x=0
+p=0
+L=0
+root=Tk()
+c1= Canvas(root,width=850,height=600,bg="#D922D0")
+
+entryim=Entry(c1,width=30,bg='#A9D926')
+entrykol=Entry(c1,width=30,bg='#A9D926')
+
+entryim.place(x=250 , y = 50)
+entrykol.place(x=250,y=80)
+
+
+
+c1.create_text(10, 60, anchor=W, text="Имя лингвистической переменной", fill='black')
+c1.create_text(10, 80, anchor=W, text="Количесво термов", fill='black')
+
+
+c1.create_text(10, 110, anchor=W, text="Имена термов", fill='black')
+entryTerm=[]
+Kor = []
+def zadat ():
+    global x
+    x = entrykol.get()
+    x = int(x)
+
+    for Term in range(x):
+
+
+        k = 30 * Term
+        global entryI
+        entryI = Entry(c1, width=30, bg='#A9D926')
+        entryI.place(x=250 ,y=120+k)
+
+
+
+
+
+buttonZG=Button(text='Загрузить' ,relief=FLAT, bg='#9DBFD9')
+buttonZD=Button(text='Задать',relief=FLAT, bg='#9DBFD9',command = zadat)
+buttonZG.place(x=500,y=50)
+buttonZD.place(x=500,y=80)
+
+
+#окно редактирования
+global z
+def otkr ():
+    root1=Tk()
+    c2 = Canvas(root1,width=1000,height=500,bg="#D922D0")
+    entryimax = Entry(c2, width=30, bg='#A9D926')
+    entryimax.place(x=700, y=70)
+
+
+    def zad():
+        global x,p
+        fim = open(entryim.get(),'tw')
+        z = entryimax.get()
+        z = int(z)
+        global entryTerm
+        for ZN in range(10):
+            c2.create_text(10 + 65 * ZN, 460, text=z / 10 * ZN)
+            scale1 = Scale(c3, orient='horizontal', from_=0, to=z, length=658)
+            scale1.place(x=-3, y=365)
+        for Term in range(x*2):
+            p = Term * 30
+
+            ent = Entry(c2, width=7, bg='red')
+            ent.place(x=700, y=150 + p)
+            entryTerm.append(ent)
+            ent1 = Entry(c2, width=7, bg='red')
+            ent1.place(x=700+50, y=150 + p)
+            entryTerm.append(ent1)
+
+        buttonP1 = Button(c2, text='Построить',  command=post2,relief=FLAT, bg='#9DBFD9')
+        buttonP1.place(x=700, y=100)
+        c2.create_text(720,135,anchor=W, text="X", fill='black')
+        c2.create_text(760,135, anchor=W, text="Y", fill='black')
+        for v in range(3):
+            p=v * 50
+            c2.create_text(670,165+p,font=("Ubuntu",10), text=1+v, fill='black')
+
+    def post2():
+        c3.create_line(3, 3, 80, 3, 100, 363, width=3, fill='red')
+        c3.create_line(80, 363, 120, 3, 180, 3,225,363, width=3, fill='red')
+        c3.create_line(200, 363, 250, 3, 330, 3, 380, 363, width=3, fill='red')
+      #  c3.create_line(50, 363, 120, 3, 180, 3, 225, 363, width=3, fill='red')
+
+        # fim = open(entryim.get(), 'a')
+        # global x
+        # for v in range(x * 4):
+        #     y = entryTerm[v].get()
+        #     y=int(y)
+        #     Kor.insert(v, y)
+        #
+        #
+        #     #c3.create_line(0,300,100,100,200,300,width=3,fill=red)
+        #
+        # for b in range(x):
+        #
+        #     points=[0,300,Kor[0],Kor[1],Kor[2],Kor[3]]
+        #     c3.create_line(points,fill='red',width=3)
+        #     points1 = [Kor[3], Kor[4], Kor[5], Kor[6], Kor[7], Kor[8]]
+        #     c3.create_line(points1, fill='red', width=3)
+        #     points2 = [Kor[8], Kor[9], Kor[10], Kor[11], Kor[12], Kor[13]]
+        #     c3.create_line(points2, fill='red', width=3)
+        #     points3 = [Kor[13], Kor[14], Kor[15], Kor[16], Kor[17], Kor[18]]
+        #     c3.create_line(points3, fill='red', width=3)
+        #     points4 = [Kor[18], Kor[19], Kor[20], Kor[21], Kor[22], Kor[23]]
+        #     c3.create_line(points4, fill='red', width=3)
+        #
+        #
+        #
+        # print(Kor)
+        # fim.write(str(Kor))
+        #
+        # fim.close()
+
+    def zag():
+        global enzad
+        enzad=Entry(c2,width=20)
+        enzad.place(x=800,y=140)
+        buOK=Button(c2,text='Ok',command=go,relief=FLAT, bg='#9DBFD9')
+        buOK.place(x=900,y=140)
+
+    def go():
+        m = []
+        fim = open(enzad.get(), 'r')
+        m=fim.read()
+        m=m[1:-1].split(",")
+
+        print(m)
+
+        points = [0, 50, int(m[0]), 50, m[1], 364, m[2], 364, m[3], 50, m[4], 50, m[5], 364]
+        c3.create_line(points, fill='red', width=3)
+        fim.close()
+
+
+
+
+  #  buttonP = Button(c1, text='Построить', bg='#FCF84C', command=post2)
+   # buttonP.place(x=500, y=120)
+
+    labelq=Label(c2,text="Максимальное значение",bg="#29DC93")
+    labelq.place(x=700,y=47)
+
+    buttonZD1 = Button(c2,text='Задать',command=zad,relief=FLAT, bg='#9DBFD9')
+    buttonSave = Button(c2,text='Загрузить',command=zag,relief=FLAT, bg='#9DBFD9')
+
+    buttonZD1.place(x=900,y=70)
+    buttonSave.place(x=800,y=100)
+
+    #сраный график
+    c3=Canvas(c2, width= 650,height=400)
+    c3.create_line(0,365,850,365 ,width=2)
+    c3.create_line(4,0,4,400)
+
+    c3.place(x=10, y=50)
+    c2.pack()
+    root1.mainloop()
+
+buttonR=Button(text='Перейти в режим редактирования' , relief=FLAT, bg='#9DBFD9',command=otkr)
+buttonR.place(x=250,y=10)
+c1.pack()
+
+
+root.mainloop()
+
